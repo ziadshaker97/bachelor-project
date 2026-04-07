@@ -1,0 +1,23 @@
+[
+  {
+    "role": "Software Engineer",
+    "recommended_topics": ["development", "security", "deployment", "workflow"],
+    "common_skill_gaps": ["git", "python", "security awareness"]
+  },
+  {
+    "role": "Data Analyst",
+    "recommended_topics": ["data governance", "privacy", "reporting", "security"],
+    "common_skill_gaps": ["sql", "data literacy", "security awareness"]
+  },
+  {
+    "role": "Product Manager",
+    "recommended_topics": ["roadmapping", "communication", "customer empathy", "workflow"],
+    "common_skill_gaps": ["stakeholder management", "communication", "company values"]
+  },
+  {
+    "role": "Operations Analyst",
+    "recommended_topics": ["workflow", "customer empathy", "reporting", "hr"],
+    "common_skill_gaps": ["communication", "data literacy", "company values"]
+  }
+]
+

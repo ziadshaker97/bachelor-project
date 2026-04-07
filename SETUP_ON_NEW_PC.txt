@@ -1,0 +1,37 @@
+Employee Onboarding Intelligence - New PC Setup
+
+1. Install Python 3.12 or newer.
+2. Install Node.js 18 or newer.
+3. Install Ollama from https://ollama.com/download/windows
+
+Backend:
+1. Open PowerShell in the extracted project folder.
+2. Run:
+   cd backend
+   python -m venv .venv
+   .\.venv\Scripts\python.exe -m pip install -e .[dev]
+
+Ollama:
+1. Start Ollama.
+2. Run:
+   ollama pull qwen2.5:0.5b
+
+Frontend:
+1. Open PowerShell in the extracted project folder.
+2. Run:
+   cd frontend
+   npm install
+
+Run the app:
+1. Start backend:
+   cd backend
+   .\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8001
+
+2. Start frontend in a second terminal:
+   cd frontend
+   npm run dev -- --host 127.0.0.1 --port 4173
+
+Open:
+http://127.0.0.1:4173/
+
+If Ollama is not ready, the chatbot will fall back to grounded extractive mode.

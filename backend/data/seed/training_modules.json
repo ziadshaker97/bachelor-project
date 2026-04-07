@@ -1,0 +1,63 @@
+[
+  {
+    "module_id": "mod-security-101",
+    "title": "Security and Access Basics",
+    "topic_tags": ["security", "compliance", "access"],
+    "difficulty": "beginner",
+    "format": "video",
+    "prerequisites": ["security awareness"],
+    "role_tags": ["software engineer", "data analyst", "product manager"],
+    "description": "Foundational onboarding for password hygiene, MFA, and company device access."
+  },
+  {
+    "module_id": "mod-eng-stack",
+    "title": "Engineering Stack Quickstart",
+    "topic_tags": ["development", "git", "deployment"],
+    "difficulty": "intermediate",
+    "format": "interactive",
+    "prerequisites": ["git", "python"],
+    "role_tags": ["software engineer"],
+    "description": "Overview of the engineering toolchain, coding workflow, release process, and support contacts."
+  },
+  {
+    "module_id": "mod-data-governance",
+    "title": "Data Governance Essentials",
+    "topic_tags": ["data governance", "privacy", "reporting"],
+    "difficulty": "intermediate",
+    "format": "text",
+    "prerequisites": ["sql", "data literacy"],
+    "role_tags": ["data analyst", "operations analyst"],
+    "description": "Best practices for handling internal data, reporting rules, and customer privacy controls."
+  },
+  {
+    "module_id": "mod-product-collab",
+    "title": "Cross-Functional Product Collaboration",
+    "topic_tags": ["stakeholder management", "roadmapping", "communication"],
+    "difficulty": "intermediate",
+    "format": "workshop",
+    "prerequisites": ["communication"],
+    "role_tags": ["product manager"],
+    "description": "Role-based training for partnering with design, engineering, operations, and leadership."
+  },
+  {
+    "module_id": "mod-hr-policy",
+    "title": "People Policies and Workplace Conduct",
+    "topic_tags": ["hr", "conduct", "leave policy"],
+    "difficulty": "beginner",
+    "format": "text",
+    "prerequisites": ["company values"],
+    "role_tags": ["software engineer", "data analyst", "product manager", "operations analyst"],
+    "description": "Required onboarding module covering workplace conduct, leave policy, and manager escalation paths."
+  },
+  {
+    "module_id": "mod-customer-context",
+    "title": "Customer Context and Support Escalation",
+    "topic_tags": ["customer empathy", "support", "workflow"],
+    "difficulty": "beginner",
+    "format": "video",
+    "prerequisites": ["communication"],
+    "role_tags": ["software engineer", "product manager", "operations analyst"],
+    "description": "Explains how teams handle customer issues, escalation, and incident communication during onboarding."
+  }
+]
+

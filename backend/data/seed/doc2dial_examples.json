@@ -1,0 +1,15 @@
+[
+  {
+    "question": "How do I request leave during onboarding?",
+    "answer_style": "Ground the answer in the leave policy document and mention the HR portal and manager approval."
+  },
+  {
+    "question": "Where do I ask for access to engineering tools?",
+    "answer_style": "Answer from the onboarding checklist and engineering quickstart guide with explicit next steps."
+  },
+  {
+    "question": "What should I do if I am unsure about data privacy rules?",
+    "answer_style": "Use the data governance policy, cite the privacy office contact, and recommend the policy training module."
+  }
+]
+

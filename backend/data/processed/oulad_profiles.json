@@ -1,0 +1,142 @@
+[
+  {
+    "role": "Data Analyst",
+    "employee_cluster": "data_analyst",
+    "recommended_topics": [
+      "guided learning",
+      "communication",
+      "assessment readiness",
+      "workflow"
+    ],
+    "common_skill_gaps": [
+      "time management",
+      "assessment readiness",
+      "applied knowledge",
+      "continuous learning discipline"
+    ],
+    "normalized_engagement_score": 0.16,
+    "topic_affinity": [
+      "guided learning",
+      "communication",
+      "assessment readiness",
+      "workflow",
+      "self-service discovery",
+      "knowledge navigation"
+    ],
+    "difficulty_progression": "beginner",
+    "learner_clusters": [
+      "steady_engagement",
+      "support_needed"
+    ],
+    "source_counts": {
+      "students": 15076,
+      "avg_studied_credits": 87.43,
+      "pass_rate": 0.47
+    }
+  },
+  {
+    "role": "Operations Analyst",
+    "employee_cluster": "operations_analyst",
+    "recommended_topics": [
+      "communication",
+      "workflow",
+      "self-service discovery",
+      "guided learning"
+    ],
+    "common_skill_gaps": [
+      "time management",
+      "assessment readiness",
+      "applied knowledge",
+      "continuous learning discipline"
+    ],
+    "normalized_engagement_score": 0.1,
+    "topic_affinity": [
+      "communication",
+      "workflow",
+      "self-service discovery",
+      "guided learning",
+      "knowledge navigation",
+      "collaboration"
+    ],
+    "difficulty_progression": "beginner",
+    "learner_clusters": [
+      "steady_engagement",
+      "support_needed"
+    ],
+    "source_counts": {
+      "students": 5848,
+      "avg_studied_credits": 86.65,
+      "pass_rate": 0.42
+    }
+  },
+  {
+    "role": "Product Manager",
+    "employee_cluster": "product_manager",
+    "recommended_topics": [
+      "assessment readiness",
+      "workflow",
+      "guided learning",
+      "communication"
+    ],
+    "common_skill_gaps": [
+      "time management",
+      "assessment readiness",
+      "applied knowledge",
+      "continuous learning discipline"
+    ],
+    "normalized_engagement_score": 0.15,
+    "topic_affinity": [
+      "assessment readiness",
+      "workflow",
+      "guided learning",
+      "communication",
+      "self-service discovery",
+      "knowledge navigation"
+    ],
+    "difficulty_progression": "beginner",
+    "learner_clusters": [
+      "steady_engagement",
+      "support_needed"
+    ],
+    "source_counts": {
+      "students": 6776,
+      "avg_studied_credits": 61.84,
+      "pass_rate": 0.46
+    }
+  },
+  {
+    "role": "Software Engineer",
+    "employee_cluster": "software_engineer",
+    "recommended_topics": [
+      "guided learning",
+      "communication",
+      "workflow",
+      "collaboration"
+    ],
+    "common_skill_gaps": [
+      "time management",
+      "assessment readiness",
+      "continuous learning discipline",
+      "applied knowledge"
+    ],
+    "normalized_engagement_score": 0.16,
+    "topic_affinity": [
+      "guided learning",
+      "communication",
+      "workflow",
+      "collaboration",
+      "assessment readiness",
+      "self-service discovery"
+    ],
+    "difficulty_progression": "beginner",
+    "learner_clusters": [
+      "steady_engagement",
+      "support_needed"
+    ],
+    "source_counts": {
+      "students": 3571,
+      "avg_studied_credits": 69.3,
+      "pass_rate": 0.59
+    }
+  }
+]

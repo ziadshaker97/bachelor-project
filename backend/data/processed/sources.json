@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-04-05T14:27:24.688157+00:00",
+  "sources": {
+    "oulad": {
+      "raw_dir": "C:\\Users\\DELL\\OneDrive\\Documents\\Playground\\backend\\data\\raw\\oulad\\extracted",
+      "profile_file": "C:\\Users\\DELL\\OneDrive\\Documents\\Playground\\backend\\data\\processed\\oulad_profiles.json",
+      "profile_record_count": 4,
+      "training_file": "C:\\Users\\DELL\\OneDrive\\Documents\\Playground\\backend\\data\\processed\\oulad_training_examples.json",
+      "training_record_count": 32593,
+      "splits_file": "C:\\Users\\DELL\\OneDrive\\Documents\\Playground\\backend\\data\\processed\\oulad_splits.json",
+      "split_counts": {
+        "train": 22820,
+        "test": 4862,
+        "validation": 4911
+      },
+      "training_outlier_handling": {
+        "method": "winsorized_quantile_clip",
+        "low_quantile": 0.01,
+        "high_quantile": 0.99
+      }
+    },
+    "doc2dial": {
+      "raw_dir": "C:\\Users\\DELL\\OneDrive\\Documents\\Playground\\backend\\data\\raw\\doc2dial\\extracted",
+      "processed_file": "C:\\Users\\DELL\\OneDrive\\Documents\\Playground\\backend\\data\\processed\\doc2dial_examples.json",
+      "record_count": 250,
+      "behavior_file": "C:\\Users\\DELL\\OneDrive\\Documents\\Playground\\backend\\data\\processed\\doc2dial_behaviors.json",
+      "behavior_record_count": 180
+    }
+  }
+}

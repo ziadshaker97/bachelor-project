@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-04-05T14:29:37.631290+00:00",
+  "dataset": {
+    "path": "C:\\Users\\DELL\\OneDrive\\Documents\\Playground\\backend\\data\\processed\\oulad_training_examples.json",
+    "total_examples": 32593,
+    "train_examples": 26154,
+    "test_examples": 6439
+  },
+  "models": {
+    "success_classifier": {
+      "path": "C:\\Users\\DELL\\OneDrive\\Documents\\Playground\\backend\\data\\models\\oulad_success_model.json",
+      "model_type": "logistic_regression_sgd",
+      "target": "success",
+      "metrics": {
+        "train": {
+          "accuracy": 0.9074,
+          "precision": 0.904,
+          "recall": 0.9,
+          "f1": 0.902,
+          "log_loss": 0.2868
+        },
+        "test": {
+          "accuracy": 0.9043,
+          "precision": 0.8983,
+          "recall": 0.8965,
+          "f1": 0.8974,
+          "log_loss": 0.3003
+        }
+      }
+    },
+    "recommendation_regressor": {
+      "path": "C:\\Users\\DELL\\OneDrive\\Documents\\Playground\\backend\\data\\models\\oulad_recommendation_model.json",
+      "model_type": "linear_regression_sgd",
+      "target": "recommendation_score",
+      "metrics": {
+        "train": {
+          "mae": 0.1095,
+          "rmse": 0.1603,
+          "r2": 0.8242
+        },
+        "test": {
+          "mae": 0.1086,
+          "rmse": 0.1601,
+          "r2": 0.8253
+        }
+      }
+    },
+    "recommendation_ranker": {
+      "path": "C:\\Users\\DELL\\OneDrive\\Documents\\Playground\\backend\\data\\models\\oulad_recommendation_model.json",
+      "model_type": "profile_centroid_ranker",
+      "target": "next_best_module",
+      "skill_gap_target": "skill_gap",
+      "metrics": {
+        "train": {
+          "top1_accuracy": 0.2617,
+          "top3_accuracy": 0.886,
+          "skill_gap_accuracy": 0.3136,
+          "heuristic_baseline": {
+            "top1_accuracy": 0.0787,
+            "top3_accuracy": 0.6698
+          }
+        },
+        "validation": {
+          "top1_accuracy": 0.2619,
+          "top3_accuracy": 0.8843,
+          "skill_gap_accuracy": 0.302,
+          "heuristic_baseline": {
+            "top1_accuracy": 0.0788,
+            "top3_accuracy": 0.6748
+          }
+        },
+        "test": {
+          "top1_accuracy": 0.2602,
+          "top3_accuracy": 0.8902,
+          "skill_gap_accuracy": 0.3116,
+          "heuristic_baseline": {
+            "top1_accuracy": 0.0742,
+            "top3_accuracy": 0.665
+          }
+        }
+      },
+      "heuristic_comparison": {
+        "top1_accuracy": 0.0742,
+        "top3_accuracy": 0.665
+      }
+    }
+  }
+}

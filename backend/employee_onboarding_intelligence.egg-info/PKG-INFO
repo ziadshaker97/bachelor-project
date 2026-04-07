@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: employee-onboarding-intelligence
+Version: 0.1.0
+Summary: Employee onboarding intelligence MVP backend
+Requires-Python: >=3.10
+Requires-Dist: fastapi<1.0,>=0.115
+Requires-Dist: uvicorn<1.0,>=0.30
+Requires-Dist: pydantic<3.0,>=2.8
+Requires-Dist: httpx<1.0,>=0.27
+Provides-Extra: dev
+Requires-Dist: pytest<9.0,>=8.2; extra == "dev"
