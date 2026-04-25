@@ -81,3 +81,36 @@ npm run dev
 ```
 
 The frontend expects the backend at `http://127.0.0.1:8001` by default.
+
+## Model and references
+
+This application uses a local LLM setup through Ollama for the assistant layer.
+
+- LLM runtime: `Ollama`
+- Configured backend: `ollama`
+- Configured model in this project: `qwen2.5:0.5b`
+- Ollama endpoint in local setup: `http://127.0.0.1:11434`
+
+Current project configuration reference:
+
+- `backend/.env`
+- `backend/app/config.py`
+- `backend/app/services/llm.py`
+
+Official links:
+
+- Ollama: [https://ollama.com](https://ollama.com)
+- Qwen2.5 on Ollama: [https://ollama.com/library/qwen2.5](https://ollama.com/library/qwen2.5)
+- Qwen2.5 official GitHub: [https://github.com/QwenLM/Qwen2.5](https://github.com/QwenLM/Qwen2.5)
+- Qwen2.5 official blog: [https://qwenlm.github.io/blog/qwen2.5/](https://qwenlm.github.io/blog/qwen2.5/)
+
+Additional application references:
+
+- Backend framework: [FastAPI](https://fastapi.tiangolo.com/)
+- Frontend framework: [React](https://react.dev/)
+- Build tool: [Vite](https://vitejs.dev/)
+
+Dataset and grounding references used in the project:
+
+- OULAD dataset: [https://archive.ics.uci.edu/dataset/349/open+university+learning+analytics+dataset](https://archive.ics.uci.edu/dataset/349/open+university+learning+analytics+dataset)
+- Doc2Dial dataset: [https://doc2dial.github.io/](https://doc2dial.github.io/)
