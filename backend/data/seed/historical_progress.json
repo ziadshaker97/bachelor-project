@@ -1,0 +1,79 @@
+[
+  {
+    "employee_id": "emp-demo-001",
+    "course_id": "course-all-001",
+    "status": "completed",
+    "progress_percent": 100,
+    "saved_for_later": false
+  },
+  {
+    "employee_id": "emp-demo-001",
+    "course_id": "course-se-002",
+    "status": "in_progress",
+    "progress_percent": 35,
+    "saved_for_later": false
+  },
+  {
+    "employee_id": "emp-demo-002",
+    "course_id": "course-da-001",
+    "status": "completed",
+    "progress_percent": 100,
+    "saved_for_later": false
+  },
+  {
+    "employee_id": "emp-demo-002",
+    "course_id": "course-da-003",
+    "status": "in_progress",
+    "progress_percent": 55,
+    "saved_for_later": false
+  },
+  {
+    "employee_id": "emp-demo-003",
+    "course_id": "course-pm-001",
+    "status": "in_progress",
+    "progress_percent": 40,
+    "saved_for_later": false
+  },
+  {
+    "employee_id": "emp-demo-004",
+    "course_id": "course-op-001",
+    "status": "saved",
+    "progress_percent": 0,
+    "saved_for_later": true
+  },
+  {
+    "employee_id": "emp-demo-005",
+    "course_id": "course-all-001",
+    "status": "completed",
+    "progress_percent": 100,
+    "saved_for_later": false
+  },
+  {
+    "employee_id": "emp-demo-005",
+    "course_id": "course-se-001",
+    "status": "completed",
+    "progress_percent": 100,
+    "saved_for_later": false
+  },
+  {
+    "employee_id": "emp-demo-005",
+    "course_id": "course-se-002",
+    "status": "completed",
+    "progress_percent": 100,
+    "saved_for_later": false
+  },
+  {
+    "employee_id": "emp-demo-005",
+    "course_id": "course-se-005",
+    "status": "in_progress",
+    "progress_percent": 60,
+    "saved_for_later": false
+  },
+  {
+    "employee_id": "emp-demo-005",
+    "course_id": "course-all-002",
+    "status": "saved",
+    "progress_percent": 0,
+    "saved_for_later": true
+  }
+]

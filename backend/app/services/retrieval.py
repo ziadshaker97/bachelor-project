@@ -24,6 +24,15 @@ FOLLOW_UP_TOKENS = {
     "why",
     "how",
 }
+STRONG_FOLLOW_UP_TOKENS = {
+    "it",
+    "that",
+    "this",
+    "they",
+    "them",
+    "those",
+    "these",
+}
 STOPWORDS = {
     "a",
     "an",
@@ -66,6 +75,11 @@ def tokenize(text: str) -> list[str]:
 
 class RetrievalService:
     def __init__(self) -> None:
+        self.documents: list[DocumentRecord] = []
+        self.chunks: list[dict] = []
+        self._refresh_documents()
+
+    def _refresh_documents(self) -> None:
         self.documents = load_documents()
         self.chunks = self._build_chunks(self.documents)
 
@@ -96,10 +110,9 @@ class RetrievalService:
         if not recent_user_messages:
             return query
 
-        is_follow_up = (
-            len(query_tokens) <= 4
-            or any(token in FOLLOW_UP_TOKENS for token in query_tokens)
-        )
+        is_short_follow_up = len(query_tokens) <= 4 and any(token in FOLLOW_UP_TOKENS for token in query_tokens)
+        is_referential_follow_up = any(token in STRONG_FOLLOW_UP_TOKENS for token in query_tokens)
+        is_follow_up = is_short_follow_up or is_referential_follow_up
         if not is_follow_up:
             return query
 
@@ -119,6 +132,7 @@ class RetrievalService:
         return dot / (left_norm * right_norm)
 
     def retrieve(self, query: str, top_k: int = TOP_K_DOCS, history: list[dict[str, str]] | None = None) -> list[SourceSnippet]:
+        self._refresh_documents()
         rewritten_query = self._rewrite_query(query, history=history)
         query_vector = Counter(tokenize(rewritten_query))
         ranked = []

@@ -7,6 +7,8 @@ from .recommender_model import LocalRecommendationModelService
 
 
 class RecommendationService:
+    HIDDEN_MODULE_IDS = {"mod-security-101", "mod-hr-policy", "mod-customer-context"}
+
     def __init__(self) -> None:
         self.modules = load_modules()
         self.reference_profiles = load_oulad_profiles()
@@ -23,6 +25,14 @@ class RecommendationService:
         vector.update(f"exp:{value}" for value in self._normalize([profile.experience_level]))
         vector.update(f"skill:{value}" for value in self._normalize(profile.known_skills))
         vector.update(f"pref:{value}" for value in self._normalize(profile.learning_preferences))
+        vector.update(f"goal:{value}" for value in self._normalize(profile.career_goals))
+        vector.update(self._normalize(profile.cv_summary.replace(",", " ").split()))
+        if profile.months_in_training >= 6:
+            vector.update(["history:advanced", "history:advanced"])
+        elif profile.months_in_training >= 3:
+            vector.update(["history:steady"])
+        else:
+            vector.update(["history:early"])
 
         for item in self.reference_profiles:
             if item["role"].lower() == profile.role.lower():
@@ -40,6 +50,18 @@ class RecommendationService:
         description_tokens = self._normalize(module.description.replace(",", " ").split())
         vector.update(description_tokens)
         return vector
+
+    def _is_module_relevant(self, profile: EmployeeProfile, module: TrainingModule) -> bool:
+        if module.module_id in self.HIDDEN_MODULE_IDS:
+            return False
+        role = profile.role.lower()
+        department = profile.department.lower()
+        module_roles = {value.lower() for value in module.role_tags}
+        module_topics = {value.lower() for value in module.topic_tags}
+        return (
+            role in module_roles
+            or department in module_topics
+        )
 
     @staticmethod
     def _cosine_similarity(left: Counter[str], right: Counter[str]) -> float:
@@ -63,6 +85,9 @@ class RecommendationService:
         if profile.role.lower() in module_roles:
             reasons.append("matched_role")
             text_fragments.append("aligned with your role")
+        if profile.career_goals and module_topics & {value.lower() for value in profile.career_goals}:
+            reasons.append("career_goal")
+            text_fragments.append("supports one of your stated career goals")
         if profile.experience_level.lower() == module.difficulty.lower():
             reasons.append("difficulty_fit")
             text_fragments.append("fits your current experience level")
@@ -85,6 +110,8 @@ class RecommendationService:
         profile_vector = self._profile_vector(profile)
         scored: list[RecommendationResult] = []
         for module in self.modules:
+            if not self._is_module_relevant(profile, module):
+                continue
             score = self._cosine_similarity(profile_vector, self._module_vector(module))
             if profile.role.lower() in {value.lower() for value in module.role_tags}:
                 score += 0.08
@@ -116,14 +143,33 @@ class RecommendationService:
                 "known_skills": profile.known_skills,
                 "learning_preferences": profile.learning_preferences,
             },
-            top_k=top_k,
+            top_k=max(top_k * 3, len(self.modules)),
         )
         module_by_id = {module.module_id: module for module in self.modules}
         recommendations: list[RecommendationResult] = []
+        profile_skills = {value.lower() for value in profile.known_skills}
+        profile_goals = {value.lower() for value in profile.career_goals}
+        seen_ids: set[str] = set()
         for item in ranked:
             module = module_by_id.get(item["module_id"])
             if module is None:
                 continue
+            if not self._is_module_relevant(profile, module):
+                continue
+            if module.module_id in seen_ids:
+                continue
+            score = float(item["score"])
+            module_roles = {value.lower() for value in module.role_tags}
+            module_topics = {value.lower() for value in module.topic_tags}
+            if profile.role.lower() in module_roles:
+                score += 0.18
+            if profile.department.lower() in module_topics:
+                score += 0.08
+            if module_topics & profile_goals:
+                score += 0.12
+            missing_prereqs = [item for item in module.prerequisites if item.lower() not in profile_skills]
+            if missing_prereqs:
+                score += 0.05
             reason_codes = ["local_model"]
             reason_text = f"Predicted next-best module from the local recommender model; likely skill gap: {predicted_gap}."
             if profile.role.lower() in {value.lower() for value in module.role_tags}:
@@ -133,11 +179,13 @@ class RecommendationService:
             recommendations.append(
                 RecommendationResult(
                     module_id=module.module_id,
-                    score=round(item["score"], 4),
+                    score=round(score, 4),
                     reason_codes=reason_codes,
                     reason_text=reason_text,
                 )
             )
+            seen_ids.add(module.module_id)
+        recommendations.sort(key=lambda item: item.score, reverse=True)
         return recommendations[:top_k]
 
     def recommend(self, profile: EmployeeProfile, top_k: int = 5) -> list[RecommendationResult]:
@@ -145,6 +193,20 @@ class RecommendationService:
 
     def recommend_with_strategy(self, profile: EmployeeProfile, top_k: int = 5) -> tuple[list[RecommendationResult], str]:
         try:
-            return self._model_recommend(profile=profile, top_k=top_k), "model"
+            model_results = self._model_recommend(profile=profile, top_k=top_k)
+            if len(model_results) >= top_k:
+                return model_results, "model"
+
+            heuristic_results = self._heuristic_recommend(profile=profile, top_k=top_k)
+            merged: list[RecommendationResult] = []
+            seen_ids: set[str] = set()
+            for item in [*model_results, *heuristic_results]:
+                if item.module_id in seen_ids:
+                    continue
+                merged.append(item)
+                seen_ids.add(item.module_id)
+                if len(merged) >= top_k:
+                    break
+            return merged, "hybrid"
         except Exception:
             return self._heuristic_recommend(profile=profile, top_k=top_k), "heuristic"

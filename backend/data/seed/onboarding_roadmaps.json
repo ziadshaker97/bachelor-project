@@ -1,0 +1,202 @@
+{
+  "Software Engineer": [
+    {
+      "milestone_id": "se-week1",
+      "title": "Complete engineering setup",
+      "phase": "Week 1",
+      "description": "Get repository access, local tooling, communication channels, and security basics completed.",
+      "recommended_course_ids": ["course-all-001", "course-se-002"],
+      "recommended_module_ids": ["mod-eng-stack"]
+    },
+    {
+      "milestone_id": "se-week2",
+      "title": "Ship first guided task",
+      "phase": "Week 2",
+      "description": "Understand branching flow, make a small change, and follow the team's review process.",
+      "recommended_course_ids": ["course-se-001", "course-se-002"],
+      "recommended_module_ids": ["mod-eng-collaboration"]
+    },
+    {
+      "milestone_id": "se-week3",
+      "title": "Own a scoped work item",
+      "phase": "Week 3",
+      "description": "Take responsibility for a scoped issue and collaborate across engineering and product.",
+      "recommended_course_ids": ["course-all-002"],
+      "recommended_module_ids": ["mod-eng-api-readiness"]
+    },
+    {
+      "milestone_id": "se-month1",
+      "title": "Strengthen backend ownership",
+      "phase": "Month 1",
+      "description": "Handle more independent backend work, improve debugging confidence, and contribute to service quality.",
+      "recommended_course_ids": ["course-se-001", "course-se-005"],
+      "recommended_module_ids": ["mod-eng-quality", "mod-eng-observability"]
+    },
+    {
+      "milestone_id": "se-month3",
+      "title": "Support production readiness",
+      "phase": "Month 3",
+      "description": "Take part in release readiness, mentor newer joiners on setup basics, and contribute to automation or platform reliability work.",
+      "recommended_course_ids": ["course-se-005", "course-all-002"],
+      "recommended_module_ids": ["mod-eng-security-practice"]
+    },
+    {
+      "milestone_id": "se-month6",
+      "title": "Lead reliable delivery",
+      "phase": "Month 6",
+      "description": "Operate with more independence, support team delivery quality, and contribute to platform reliability improvements.",
+      "recommended_course_ids": ["course-se-005", "course-all-002"],
+      "recommended_module_ids": ["mod-eng-security-practice", "mod-eng-observability"]
+    }
+  ],
+  "Data Analyst": [
+    {
+      "milestone_id": "da-week1",
+      "title": "Understand data access rules",
+      "phase": "Week 1",
+      "description": "Review privacy, governance, and access expectations before working with internal data.",
+      "recommended_course_ids": ["course-da-002", "course-all-001"],
+      "recommended_module_ids": ["mod-data-governance"]
+    },
+    {
+      "milestone_id": "da-week2",
+      "title": "Build first reporting workflow",
+      "phase": "Week 2",
+      "description": "Learn the reporting environment and produce an initial metrics view with support.",
+      "recommended_course_ids": ["course-da-001"],
+      "recommended_module_ids": ["mod-data-insights"]
+    },
+    {
+      "milestone_id": "da-week3",
+      "title": "Present insights confidently",
+      "phase": "Week 3",
+      "description": "Share findings with stakeholders using clear narrative and governance-aware analysis.",
+      "recommended_course_ids": ["course-all-002"],
+      "recommended_module_ids": ["mod-data-storytelling"]
+    },
+    {
+      "milestone_id": "da-month1",
+      "title": "Own a repeatable dashboard",
+      "phase": "Month 1",
+      "description": "Manage a recurring dashboard, improve data quality checks, and communicate trends with less support.",
+      "recommended_course_ids": ["course-da-003", "course-da-001"],
+      "recommended_module_ids": ["mod-data-bi-ops", "mod-data-quality"]
+    },
+    {
+      "milestone_id": "da-month3",
+      "title": "Drive analytics decisions",
+      "phase": "Month 3",
+      "description": "Lead analysis for a business question, recommend actions, and coach stakeholders on reporting hygiene.",
+      "recommended_course_ids": ["course-da-003", "course-all-002"],
+      "recommended_module_ids": ["mod-data-business-partnering"]
+    },
+    {
+      "milestone_id": "da-month6",
+      "title": "Lead trusted reporting",
+      "phase": "Month 6",
+      "description": "Own a business reporting area, maintain data quality confidence, and advise stakeholders on decision-ready analytics.",
+      "recommended_course_ids": ["course-da-003", "course-all-002"],
+      "recommended_module_ids": ["mod-data-business-partnering", "mod-data-quality"]
+    }
+  ],
+  "Product Manager": [
+    {
+      "milestone_id": "pm-week1",
+      "title": "Learn core policies and stakeholders",
+      "phase": "Week 1",
+      "description": "Review company expectations and map the key people involved in product delivery.",
+      "recommended_course_ids": ["course-all-001", "course-all-002"],
+      "recommended_module_ids": ["mod-product-collab"]
+    },
+    {
+      "milestone_id": "pm-week2",
+      "title": "Join product rituals",
+      "phase": "Week 2",
+      "description": "Participate in planning, standups, and roadmap conversations with context.",
+      "recommended_course_ids": ["course-pm-001"],
+      "recommended_module_ids": ["mod-product-discovery"]
+    },
+    {
+      "milestone_id": "pm-week3",
+      "title": "Lead a small discovery loop",
+      "phase": "Week 3",
+      "description": "Run a scoped discovery activity and align stakeholders around outcomes and risks.",
+      "recommended_course_ids": ["course-pm-001", "course-all-002"],
+      "recommended_module_ids": ["mod-product-user-insight"]
+    },
+    {
+      "milestone_id": "pm-month1",
+      "title": "Own a roadmap slice",
+      "phase": "Month 1",
+      "description": "Take ownership of a roadmap area, align engineering and design, and keep execution moving.",
+      "recommended_course_ids": ["course-pm-001"],
+      "recommended_module_ids": ["mod-product-delivery", "mod-product-execution"]
+    },
+    {
+      "milestone_id": "pm-month3",
+      "title": "Influence delivery outcomes",
+      "phase": "Month 3",
+      "description": "Lead a larger initiative, improve product communication, and shape prioritization with stakeholders.",
+      "recommended_course_ids": ["course-pm-001", "course-all-002"],
+      "recommended_module_ids": ["mod-product-metrics"]
+    },
+    {
+      "milestone_id": "pm-month6",
+      "title": "Lead product outcomes",
+      "phase": "Month 6",
+      "description": "Guide a broader roadmap area, align teams around outcomes, and strengthen product decision quality.",
+      "recommended_course_ids": ["course-pm-001", "course-all-002"],
+      "recommended_module_ids": ["mod-product-metrics", "mod-product-execution"]
+    }
+  ],
+  "Operations Analyst": [
+    {
+      "milestone_id": "op-week1",
+      "title": "Understand service operations",
+      "phase": "Week 1",
+      "description": "Review workflows, escalation paths, and compliance expectations for operations work.",
+      "recommended_course_ids": ["course-all-001"],
+      "recommended_module_ids": ["mod-ops-workflow"]
+    },
+    {
+      "milestone_id": "op-week2",
+      "title": "Map your first workflow",
+      "phase": "Week 2",
+      "description": "Document one recurring workflow and identify a simple improvement opportunity.",
+      "recommended_course_ids": ["course-op-001"],
+      "recommended_module_ids": ["mod-ops-escalation"]
+    },
+    {
+      "milestone_id": "op-week3",
+      "title": "Improve reliability and communication",
+      "phase": "Week 3",
+      "description": "Coordinate clearly across teams while improving accuracy and service consistency.",
+      "recommended_course_ids": ["course-op-001", "course-all-002"],
+      "recommended_module_ids": ["mod-ops-service-reporting"]
+    },
+    {
+      "milestone_id": "op-month1",
+      "title": "Stabilize team operations",
+      "phase": "Month 1",
+      "description": "Improve a high-volume workflow, reduce handoff gaps, and document operational best practices.",
+      "recommended_course_ids": ["course-op-001"],
+      "recommended_module_ids": ["mod-ops-process-improvement"]
+    },
+    {
+      "milestone_id": "op-month3",
+      "title": "Lead process improvement",
+      "phase": "Month 3",
+      "description": "Own a measurable process improvement initiative and communicate service performance trends clearly.",
+      "recommended_course_ids": ["course-op-001", "course-all-002"],
+      "recommended_module_ids": ["mod-ops-capacity-planning"]
+    },
+    {
+      "milestone_id": "op-month6",
+      "title": "Own operational reliability",
+      "phase": "Month 6",
+      "description": "Support dependable service delivery, anticipate capacity risks, and guide measurable workflow improvements.",
+      "recommended_course_ids": ["course-op-001", "course-all-002"],
+      "recommended_module_ids": ["mod-ops-capacity-planning", "mod-ops-process-improvement"]
+    }
+  ]
+}

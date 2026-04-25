@@ -1,15 +1,19 @@
 import json
 
 from .config import (
+    COURSES_FILE,
     DOC2DIAL_BEHAVIOR_FILE,
     DOC2DIAL_FILE,
     DOCS_DIR,
+    EMPLOYEE_DIRECTORY_FILE,
+    HISTORICAL_PROGRESS_FILE,
     MODULES_FILE,
     OULAD_FILE,
     OULAD_SPLITS_FILE,
     OULAD_TRAINING_FILE,
+    ROADMAP_FILE,
 )
-from .models import DocumentRecord, TrainingModule
+from .models import CourseRecord, DocumentRecord, EmployeeProfile, RoadmapMilestone, TrainingModule
 
 
 def _read_json(path):
@@ -23,6 +27,26 @@ def _read_json(path):
 
 def load_modules() -> list[TrainingModule]:
     return [TrainingModule(**item) for item in json.loads(MODULES_FILE.read_text(encoding="utf-8"))]
+
+
+def load_courses() -> list[CourseRecord]:
+    return [CourseRecord(**item) for item in json.loads(COURSES_FILE.read_text(encoding="utf-8"))]
+
+
+def load_seed_profiles() -> list[EmployeeProfile]:
+    return [EmployeeProfile(**item) for item in json.loads(EMPLOYEE_DIRECTORY_FILE.read_text(encoding="utf-8"))]
+
+
+def load_historical_progress() -> list[dict]:
+    return json.loads(HISTORICAL_PROGRESS_FILE.read_text(encoding="utf-8"))
+
+
+def load_roadmaps() -> dict[str, list[RoadmapMilestone]]:
+    raw = json.loads(ROADMAP_FILE.read_text(encoding="utf-8"))
+    return {
+        role: [RoadmapMilestone(**item) for item in milestones]
+        for role, milestones in raw.items()
+    }
 
 
 def load_oulad_profiles() -> list[dict]:

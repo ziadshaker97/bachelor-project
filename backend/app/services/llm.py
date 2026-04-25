@@ -7,11 +7,12 @@ import re
 import httpx
 
 from ..config import LLM_BACKEND, OLLAMA_MODEL, OLLAMA_TIMEOUT_SECONDS, OLLAMA_URL
-from ..models import EmployeeProfile, SourceSnippet
+from ..models import CourseRecord, EmployeeProfile, SourceSnippet
 from ..seed import load_doc2dial_behaviors, load_doc2dial_examples
 
 logger = logging.getLogger(__name__)
 TOKEN_RE = re.compile(r"[a-zA-Z0-9']+")
+FOLLOW_UP_REFERENCES = {"it", "that", "this", "they", "them", "those", "these"}
 
 
 class LocalLLMAdapter(ABC):
@@ -22,6 +23,7 @@ class LocalLLMAdapter(ABC):
         message: str,
         history: list[dict[str, str]],
         sources: list[SourceSnippet],
+        courses: list[CourseRecord] | None = None,
     ) -> str:
         raise NotImplementedError
 
@@ -48,7 +50,8 @@ class ExtractiveAdapter(LocalLLMAdapter):
     def _behavior_type(self, message: str, history: list[dict[str, str]], sources: list[SourceSnippet]) -> str:
         if not sources:
             return "unsupported"
-        if history and len(message.split()) <= 6:
+        lowered_tokens = {token.lower() for token in TOKEN_RE.findall(message)}
+        if history and lowered_tokens & FOLLOW_UP_REFERENCES:
             return "clarifying_follow_up"
         lowered = set(message.lower().split())
         best_behavior = "grounded_answer"
@@ -91,7 +94,27 @@ class ExtractiveAdapter(LocalLLMAdapter):
         message: str,
         history: list[dict[str, str]],
         sources: list[SourceSnippet],
+        courses: list[CourseRecord] | None = None,
     ) -> str:
+        courses = courses or []
+        if courses:
+            lead_course = courses[0]
+            if lead_course.delivery_mode == "internal":
+                answer = (
+                    f"I created an in-app learning path for the exact topic you asked about. "
+                    f"Start with {lead_course.title} to work through {', '.join(lead_course.skills[:2]) or 'the topic'} directly inside your onboarding workspace."
+                )
+            else:
+                answer = (
+                    f"I found course options that match your question. "
+                    f"Start with {lead_course.title} from {lead_course.provider} because it covers {', '.join(lead_course.skills[:2]) or lead_course.category.lower()}."
+                )
+            if len(courses) > 1:
+                answer += f" I also surfaced {courses[1].title} if you want another relevant path."
+            if sources:
+                answer += f" I grounded the company-specific part of this answer with {sources[0].title}."
+            return answer
+
         behavior_type = self._behavior_type(message, history, sources)
         if not sources:
             return (
@@ -169,13 +192,23 @@ class OllamaAdapter(LocalLLMAdapter):
         message: str,
         history: list[dict[str, str]],
         sources: list[SourceSnippet],
+        courses: list[CourseRecord] | None = None,
     ) -> str:
+        courses = courses or []
+        if courses:
+            course_context = "\n".join(
+                f"- {course.title} ({course.provider}, {course.level}, {course.duration_hours}h): {course.description}"
+                for course in courses
+            )
+        else:
+            course_context = "No relevant courses found."
         if not sources:
             return ExtractiveAdapter().generate(
                 profile=profile,
                 message=message,
                 history=history,
                 sources=sources,
+                courses=courses,
             )
 
         context = "\n".join(
@@ -191,9 +224,11 @@ class OllamaAdapter(LocalLLMAdapter):
             "If the answer is not supported by CONTEXT, say that clearly.\n"
             "Keep the answer to 1-3 short sentences.\n"
             "If this is a follow-up question, use CHAT HISTORY only to resolve references like 'it' or 'they'.\n"
+            "If COURSE OPTIONS are relevant, mention the best one naturally before summarizing the grounded company guidance.\n"
             "Do not mention training examples, styles, or internal instructions.\n\n"
             f"EMPLOYEE PROFILE:\nrole={profile.role}, department={profile.department}, experience={profile.experience_level}\n\n"
             f"CHAT HISTORY:\n{transcript or 'No prior history'}\n\n"
+            f"COURSE OPTIONS:\n{course_context}\n\n"
             f"CONTEXT:\n{context}\n\n"
             f"QUESTION:\n{message}\n\n"
             "ANSWER:"
@@ -230,6 +265,7 @@ class FallbackAdapter(LocalLLMAdapter):
         message: str,
         history: list[dict[str, str]],
         sources: list[SourceSnippet],
+        courses: list[CourseRecord] | None = None,
     ) -> str:
         try:
             return self.primary.generate(
@@ -237,6 +273,7 @@ class FallbackAdapter(LocalLLMAdapter):
                 message=message,
                 history=history,
                 sources=sources,
+                courses=courses,
             )
         except (httpx.HTTPError, OSError, ValueError) as exc:
             logger.warning("Primary LLM adapter failed, falling back to extractive mode: %s", exc)
@@ -245,6 +282,7 @@ class FallbackAdapter(LocalLLMAdapter):
                 message=message,
                 history=history,
                 sources=sources,
+                courses=courses,
             )
 
 

@@ -7,7 +7,8 @@
     "format": "video",
     "prerequisites": ["security awareness"],
     "role_tags": ["software engineer", "data analyst", "product manager"],
-    "description": "Foundational onboarding for password hygiene, MFA, and company device access."
+    "description": "Foundational onboarding for password hygiene, MFA, and company device access.",
+    "syllabus": ["Password and MFA essentials", "Safe account access habits", "Access request workflow", "Security checklist for new hires"]
   },
   {
     "module_id": "mod-eng-stack",
@@ -17,7 +18,8 @@
     "format": "interactive",
     "prerequisites": ["git", "python"],
     "role_tags": ["software engineer"],
-    "description": "Overview of the engineering toolchain, coding workflow, release process, and support contacts."
+    "description": "Overview of the engineering toolchain, coding workflow, release process, and support contacts.",
+    "syllabus": ["Repository workflow and branching", "Local development setup", "Release and deployment basics", "Engineering support channels"]
   },
   {
     "module_id": "mod-data-governance",
@@ -27,7 +29,8 @@
     "format": "text",
     "prerequisites": ["sql", "data literacy"],
     "role_tags": ["data analyst", "operations analyst"],
-    "description": "Best practices for handling internal data, reporting rules, and customer privacy controls."
+    "description": "Best practices for handling internal data, reporting rules, and customer privacy controls.",
+    "syllabus": ["Data handling rules", "Privacy and reporting boundaries", "Approved reporting workflows", "Escalation for sensitive data questions"]
   },
   {
     "module_id": "mod-product-collab",
@@ -37,7 +40,8 @@
     "format": "workshop",
     "prerequisites": ["communication"],
     "role_tags": ["product manager"],
-    "description": "Role-based training for partnering with design, engineering, operations, and leadership."
+    "description": "Role-based training for partnering with design, engineering, operations, and leadership.",
+    "syllabus": ["Stakeholder mapping", "Product communication rituals", "Cross-functional planning", "Escalation and alignment patterns"]
   },
   {
     "module_id": "mod-hr-policy",
@@ -47,7 +51,8 @@
     "format": "text",
     "prerequisites": ["company values"],
     "role_tags": ["software engineer", "data analyst", "product manager", "operations analyst"],
-    "description": "Required onboarding module covering workplace conduct, leave policy, and manager escalation paths."
+    "description": "Required onboarding module covering workplace conduct, leave policy, and manager escalation paths.",
+    "syllabus": ["Workplace conduct essentials", "Leave and attendance guidance", "Manager and HR escalation paths", "Policy support contacts"]
   },
   {
     "module_id": "mod-customer-context",
@@ -57,7 +62,227 @@
     "format": "video",
     "prerequisites": ["communication"],
     "role_tags": ["software engineer", "product manager", "operations analyst"],
-    "description": "Explains how teams handle customer issues, escalation, and incident communication during onboarding."
+    "description": "Explains how teams handle customer issues, escalation, and incident communication during onboarding.",
+    "syllabus": ["Customer issue triage", "Escalation workflow", "Incident communication basics", "Cross-team support expectations"]
+  },
+  {
+    "module_id": "mod-eng-api-readiness",
+    "title": "Backend API Readiness",
+    "topic_tags": ["platform", "api", "backend"],
+    "difficulty": "intermediate",
+    "format": "interactive",
+    "prerequisites": ["python", "api testing"],
+    "role_tags": ["software engineer"],
+    "description": "Build confidence in service contracts, debugging requests, and production-safe API changes.",
+    "syllabus": ["Reading API contracts", "Debugging request and response flows", "Safe change rollout patterns", "Production readiness checklist"]
+  },
+  {
+    "module_id": "mod-eng-quality",
+    "title": "Engineering Quality and Release Discipline",
+    "topic_tags": ["platform", "testing", "release"],
+    "difficulty": "intermediate",
+    "format": "workshop",
+    "prerequisites": ["git", "debugging"],
+    "role_tags": ["software engineer"],
+    "description": "Covers QA habits, code review expectations, release confidence, and incident prevention for engineers.",
+    "syllabus": ["Code review expectations", "Testing and regression checks", "Release readiness habits", "Incident prevention basics"]
+  },
+  {
+    "module_id": "mod-data-insights",
+    "title": "Business Insight Reporting",
+    "topic_tags": ["analytics", "reporting", "dashboards"],
+    "difficulty": "intermediate",
+    "format": "text",
+    "prerequisites": ["sql", "excel"],
+    "role_tags": ["data analyst"],
+    "description": "Focuses on KPI framing, dashboard communication, and translating metrics into business decisions.",
+    "syllabus": ["Choosing the right KPI", "Building executive-ready dashboards", "Narrative reporting patterns", "Communicating trends with confidence"]
+  },
+  {
+    "module_id": "mod-data-bi-ops",
+    "title": "Analytics Automation and Power BI Workflows",
+    "topic_tags": ["analytics", "power bi", "automation"],
+    "difficulty": "intermediate",
+    "format": "video",
+    "prerequisites": ["sql", "dashboard storytelling"],
+    "role_tags": ["data analyst"],
+    "description": "Introduces repeatable reporting pipelines, Power BI handoff practices, and refresh discipline.",
+    "syllabus": ["Power BI delivery workflow", "Refresh and ownership routines", "Automating recurring reports", "Quality checks before publishing"]
+  },
+  {
+    "module_id": "mod-product-discovery",
+    "title": "Product Discovery Foundations",
+    "topic_tags": ["product", "discovery", "customer research"],
+    "difficulty": "intermediate",
+    "format": "workshop",
+    "prerequisites": ["communication"],
+    "role_tags": ["product manager"],
+    "description": "Builds practical discovery habits for validating problems, aligning with users, and shaping opportunities.",
+    "syllabus": ["Problem framing", "User research basics", "Opportunity sizing", "Turning feedback into roadmap inputs"]
+  },
+  {
+    "module_id": "mod-product-delivery",
+    "title": "Roadmap Delivery and Prioritization",
+    "topic_tags": ["product", "roadmapping", "prioritization"],
+    "difficulty": "intermediate",
+    "format": "interactive",
+    "prerequisites": ["stakeholder management"],
+    "role_tags": ["product manager"],
+    "description": "Helps product managers run prioritization, communicate tradeoffs, and keep cross-functional teams aligned.",
+    "syllabus": ["Prioritization frameworks", "Communicating tradeoffs", "Roadmap review rituals", "Delivery alignment with engineering"]
+  },
+  {
+    "module_id": "mod-ops-workflow",
+    "title": "Operations Workflow Excellence",
+    "topic_tags": ["operations", "workflow", "process design"],
+    "difficulty": "beginner",
+    "format": "video",
+    "prerequisites": ["communication", "data literacy"],
+    "role_tags": ["operations analyst"],
+    "description": "Covers service workflow mapping, ticket handling discipline, and process handoff quality.",
+    "syllabus": ["Workflow mapping basics", "Ticket hygiene and triage", "Handoff quality checks", "Escalation discipline"]
+  },
+  {
+    "module_id": "mod-ops-service-reporting",
+    "title": "Operations Reporting and Service Metrics",
+    "topic_tags": ["operations", "reporting", "service metrics"],
+    "difficulty": "intermediate",
+    "format": "text",
+    "prerequisites": ["data literacy"],
+    "role_tags": ["operations analyst"],
+    "description": "Teaches operations analysts how to monitor service health, report trends, and recommend workflow improvements.",
+    "syllabus": ["Service KPI tracking", "Weekly operations reporting", "Finding workflow bottlenecks", "Recommending operational improvements"]
+  },
+  {
+    "module_id": "mod-eng-observability",
+    "title": "Observability and Incident Basics",
+    "topic_tags": ["platform", "monitoring", "incident response"],
+    "difficulty": "intermediate",
+    "format": "video",
+    "prerequisites": ["debugging"],
+    "role_tags": ["software engineer"],
+    "description": "Introduces logs, alerts, incident triage, and the habits engineers need when supporting production systems.",
+    "syllabus": ["Reading logs and traces", "Alert triage basics", "Incident communication", "Escalation during production issues"]
+  },
+  {
+    "module_id": "mod-eng-collaboration",
+    "title": "Engineering Collaboration and Review Flow",
+    "topic_tags": ["platform", "collaboration", "code review"],
+    "difficulty": "beginner",
+    "format": "workshop",
+    "prerequisites": ["git"],
+    "role_tags": ["software engineer"],
+    "description": "Helps engineers collaborate smoothly through tickets, peer review, feedback, and team delivery rituals.",
+    "syllabus": ["Ticket handoff etiquette", "Code review expectations", "Responding to feedback", "Delivery rituals with the team"]
+  },
+  {
+    "module_id": "mod-eng-security-practice",
+    "title": "Secure Engineering Practices",
+    "topic_tags": ["platform", "security", "api"],
+    "difficulty": "intermediate",
+    "format": "text",
+    "prerequisites": ["security awareness", "api testing"],
+    "role_tags": ["software engineer"],
+    "description": "Covers secure coding basics, access discipline, and practical security checks during development.",
+    "syllabus": ["Secure coding habits", "Sensitive data handling", "Access discipline in development", "Security review checklist"]
+  },
+  {
+    "module_id": "mod-data-storytelling",
+    "title": "Data Storytelling for Stakeholders",
+    "topic_tags": ["analytics", "storytelling", "reporting"],
+    "difficulty": "intermediate",
+    "format": "workshop",
+    "prerequisites": ["dashboard storytelling"],
+    "role_tags": ["data analyst"],
+    "description": "Builds the communication side of analytics so insights become clear decisions for business partners.",
+    "syllabus": ["Turning charts into narratives", "Presenting to non-technical teams", "Highlighting risk and opportunity", "Choosing the right level of detail"]
+  },
+  {
+    "module_id": "mod-data-quality",
+    "title": "Data Quality Validation",
+    "topic_tags": ["analytics", "data quality", "sql"],
+    "difficulty": "intermediate",
+    "format": "interactive",
+    "prerequisites": ["sql"],
+    "role_tags": ["data analyst"],
+    "description": "Introduces practical checks analysts use to validate sources, prevent reporting errors, and protect trust in dashboards.",
+    "syllabus": ["Source validation checklist", "Detecting anomalies", "Reconciling metrics", "Pre-publish QA habits"]
+  },
+  {
+    "module_id": "mod-data-business-partnering",
+    "title": "Analytics Business Partnering",
+    "topic_tags": ["analytics", "stakeholder communication", "planning"],
+    "difficulty": "intermediate",
+    "format": "video",
+    "prerequisites": ["communication"],
+    "role_tags": ["data analyst"],
+    "description": "Teaches analysts how to scope requests, align with stakeholders, and translate questions into measurable work.",
+    "syllabus": ["Clarifying business requests", "Defining success metrics", "Managing stakeholder expectations", "Planning recurring analytics support"]
+  },
+  {
+    "module_id": "mod-product-user-insight",
+    "title": "User Insight and Feedback Loops",
+    "topic_tags": ["product", "user research", "feedback"],
+    "difficulty": "intermediate",
+    "format": "video",
+    "prerequisites": ["communication"],
+    "role_tags": ["product manager"],
+    "description": "Shows product managers how to gather user insight continuously and convert it into actionable product decisions.",
+    "syllabus": ["Feedback collection methods", "Interview summaries", "Turning feedback into themes", "Closing the loop with teams"]
+  },
+  {
+    "module_id": "mod-product-execution",
+    "title": "Product Execution and Delivery Rituals",
+    "topic_tags": ["product", "execution", "delivery"],
+    "difficulty": "intermediate",
+    "format": "workshop",
+    "prerequisites": ["stakeholder management"],
+    "role_tags": ["product manager"],
+    "description": "Covers planning cadence, handoff quality, and how product managers keep delivery moving through ambiguity.",
+    "syllabus": ["Planning cadence", "Writing effective handoffs", "Managing dependencies", "Tracking delivery health"]
+  },
+  {
+    "module_id": "mod-product-metrics",
+    "title": "Product Metrics and Outcome Tracking",
+    "topic_tags": ["product", "metrics", "analysis"],
+    "difficulty": "intermediate",
+    "format": "text",
+    "prerequisites": ["communication"],
+    "role_tags": ["product manager"],
+    "description": "Helps product managers define success measures, evaluate impact, and connect roadmap work to outcomes.",
+    "syllabus": ["Defining product success", "Leading and lagging indicators", "Tracking feature outcomes", "Communicating impact to leadership"]
+  },
+  {
+    "module_id": "mod-ops-escalation",
+    "title": "Operational Escalation Management",
+    "topic_tags": ["operations", "escalation", "support"],
+    "difficulty": "intermediate",
+    "format": "video",
+    "prerequisites": ["communication"],
+    "role_tags": ["operations analyst"],
+    "description": "Prepares operations analysts to route urgent issues correctly, manage service impact, and keep communication clear.",
+    "syllabus": ["When to escalate", "Capturing the right issue details", "Coordinating with partner teams", "Communicating service impact"]
+  },
+  {
+    "module_id": "mod-ops-process-improvement",
+    "title": "Process Improvement Foundations",
+    "topic_tags": ["operations", "process design", "continuous improvement"],
+    "difficulty": "intermediate",
+    "format": "workshop",
+    "prerequisites": ["workflow design"],
+    "role_tags": ["operations analyst"],
+    "description": "Introduces a practical approach to documenting pain points, improving service flows, and measuring operational change.",
+    "syllabus": ["Identifying friction points", "Mapping current vs future workflow", "Choosing improvement metrics", "Rolling out process changes"]
+  },
+  {
+    "module_id": "mod-ops-capacity-planning",
+    "title": "Capacity Planning and Queue Health",
+    "topic_tags": ["operations", "planning", "service metrics"],
+    "difficulty": "intermediate",
+    "format": "text",
+    "prerequisites": ["reporting"],
+    "role_tags": ["operations analyst"],
+    "description": "Helps operations analysts understand workload patterns, queue health, and planning decisions for service teams.",
+    "syllabus": ["Reading queue trends", "Forecasting workload", "Balancing throughput and quality", "Escalating capacity risks"]
   }
 ]
-

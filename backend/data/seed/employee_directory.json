@@ -1,0 +1,74 @@
+[
+  {
+    "employee_id": "emp-demo-001",
+    "role": "Software Engineer",
+    "department": "Platform",
+    "experience_level": "beginner",
+    "known_skills": ["security awareness"],
+    "learning_preferences": ["video", "interactive"],
+    "access_level": "employee",
+    "cv_summary": "Entry-level software engineer with internship experience in bug fixing, API testing, and Java basics.",
+    "career_goals": ["backend development", "team collaboration", "release confidence"],
+    "months_in_training": 1
+  },
+  {
+    "employee_id": "emp-demo-002",
+    "role": "Data Analyst",
+    "department": "Analytics",
+    "experience_level": "intermediate",
+    "known_skills": ["sql", "security awareness", "excel", "dashboard storytelling"],
+    "learning_preferences": ["text", "video"],
+    "access_level": "employee",
+    "cv_summary": "Data analyst with prior internship work in SQL reporting, spreadsheet modeling, KPI tracking, and weekly business reviews.",
+    "career_goals": ["power bi", "analytics automation", "stakeholder reporting"],
+    "months_in_training": 2
+  },
+  {
+    "employee_id": "emp-demo-003",
+    "role": "Product Manager",
+    "department": "Product",
+    "experience_level": "intermediate",
+    "known_skills": ["communication"],
+    "learning_preferences": ["workshop", "interactive"],
+    "access_level": "employee",
+    "cv_summary": "Product coordinator with experience in sprint planning, status updates, and coordinating delivery with design and engineering.",
+    "career_goals": ["roadmapping", "stakeholder management", "cross-functional leadership"],
+    "months_in_training": 1
+  },
+  {
+    "employee_id": "emp-demo-004",
+    "role": "Operations Analyst",
+    "department": "Operations",
+    "experience_level": "beginner",
+    "known_skills": ["communication", "data literacy"],
+    "learning_preferences": ["video", "text"],
+    "access_level": "employee",
+    "cv_summary": "Operations analyst with support background in ticket tracking, service workflows, and internal process documentation.",
+    "career_goals": ["workflow design", "support escalation", "reporting discipline"],
+    "months_in_training": 1
+  },
+  {
+    "employee_id": "emp-demo-005",
+    "role": "Software Engineer",
+    "department": "Platform",
+    "experience_level": "intermediate",
+    "known_skills": ["python", "git", "security awareness", "api testing", "debugging"],
+    "learning_preferences": ["interactive", "video"],
+    "access_level": "employee",
+    "cv_summary": "Software engineer with six months of onboarding history, hands-on work in backend APIs, repository workflow, debugging, release support, and cross-team incident follow-up.",
+    "career_goals": ["backend ownership", "automation", "production readiness"],
+    "months_in_training": 6
+  },
+  {
+    "employee_id": "admin-demo-001",
+    "role": "HR Administrator",
+    "department": "People Operations",
+    "experience_level": "advanced",
+    "known_skills": ["analytics", "communication", "onboarding design"],
+    "learning_preferences": ["dashboard", "reporting"],
+    "access_level": "admin",
+    "cv_summary": "People operations lead managing onboarding analytics, policy rollout, and employee learning programs.",
+    "career_goals": ["program design", "adoption tracking"],
+    "months_in_training": 24
+  }
+]
