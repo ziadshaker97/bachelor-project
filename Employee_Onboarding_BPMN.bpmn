@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+  id="Definitions_EmployeeOnboarding"
+  targetNamespace="http://bpmn.io/schema/bpmn"
+  exporter="OpenAI Codex"
+  exporterVersion="1.0">
+  <bpmn:collaboration id="Collaboration_EmployeeOnboarding">
+    <bpmn:participant id="Participant_EmployeeOnboarding" name="Employee Onboarding Intelligence MVP" processRef="Process_EmployeeOnboarding" />
+  </bpmn:collaboration>
+
+  <bpmn:process id="Process_EmployeeOnboarding" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_1">
+      <bpmn:lane id="Lane_NewEmployee" name="New Employee">
+        <bpmn:flowNodeRef>StartEvent_NewEmployee</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_LoginUsingEmployeeId</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ViewDashboard</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AccessModulesCourses</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CompleteModule</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ViewOnboardingProgress</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AskAiAssistantQuestion</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_NewEmployee</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_System" name="System">
+        <bpmn:flowNodeRef>Task_ValidateEmployeeId</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_EmployeeExists</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ShowLoginError</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_LoadEmployeeProfile</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_GenerateRoleBasedRoadmap</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_GenerateRecommendations</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_UpdateProgress</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_AllModulesCompleted</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_StoreProgressInDatabase</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_MarkOnboardingCompleted</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_AIAssistant" name="AI Assistant">
+        <bpmn:flowNodeRef>Task_ReceiveQuestion</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_RetrieveRelevantDocuments</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_GenerateAnswerUsingQwen</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ReturnAnswerToEmployee</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Admin" name="Admin">
+        <bpmn:flowNodeRef>StartEvent_Admin</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_LoginToAdminDashboard</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ManageEmployees</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ManageModulesCourses</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ViewOnboardingOverview</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_MonitorEmployeeProgress</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_Admin</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+
+    <bpmn:startEvent id="StartEvent_NewEmployee" name="Start">
+      <bpmn:outgoing>Flow_Start_To_Login</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_LoginUsingEmployeeId" name="Login Using Employee ID">
+      <bpmn:incoming>Flow_Start_To_Login</bpmn:incoming>
+      <bpmn:incoming>Flow_ShowError_To_Login</bpmn:incoming>
+      <bpmn:outgoing>Flow_Login_To_Validate</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ViewDashboard" name="View Personalized Onboarding Dashboard">
+      <bpmn:incoming>Flow_Recommendations_To_Dashboard</bpmn:incoming>
+      <bpmn:outgoing>Flow_Dashboard_To_AccessModules</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_AccessModulesCourses" name="Access Modules / Courses">
+      <bpmn:incoming>Flow_Dashboard_To_AccessModules</bpmn:incoming>
+      <bpmn:incoming>Flow_GatewayNo_To_AccessModules</bpmn:incoming>
+      <bpmn:outgoing>Flow_AccessModules_To_CompleteModule</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_CompleteModule" name="Complete Module">
+      <bpmn:incoming>Flow_AccessModules_To_CompleteModule</bpmn:incoming>
+      <bpmn:outgoing>Flow_CompleteModule_To_UpdateProgress</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ViewOnboardingProgress" name="View Onboarding Progress">
+      <bpmn:incoming>Flow_ReturnAnswer_To_ViewProgress</bpmn:incoming>
+      <bpmn:outgoing>Flow_ViewProgress_To_AskQuestion</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_AskAiAssistantQuestion" name="Ask AI Assistant Question">
+      <bpmn:incoming>Flow_ViewProgress_To_AskQuestion</bpmn:incoming>
+      <bpmn:outgoing>Flow_AskQuestion_To_ReceiveQuestion</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_NewEmployee" name="End">
+      <bpmn:incoming>Flow_MarkCompleted_To_EndEmployee</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:task id="Task_ValidateEmployeeId" name="Validate Employee ID">
+      <bpmn:incoming>Flow_Login_To_Validate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Validate_To_EmployeeExists</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_EmployeeExists" name="Employee Exists?">
+      <bpmn:incoming>Flow_Validate_To_EmployeeExists</bpmn:incoming>
+      <bpmn:outgoing>Flow_EmployeeExists_No_ShowError</bpmn:outgoing>
+      <bpmn:outgoing>Flow_EmployeeExists_Yes_LoadProfile</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_ShowLoginError" name="Show Login Error">
+      <bpmn:incoming>Flow_EmployeeExists_No_ShowError</bpmn:incoming>
+      <bpmn:outgoing>Flow_ShowError_To_Login</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_LoadEmployeeProfile" name="Load Employee Profile">
+      <bpmn:incoming>Flow_EmployeeExists_Yes_LoadProfile</bpmn:incoming>
+      <bpmn:outgoing>Flow_LoadProfile_To_GenerateRoadmap</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_GenerateRoleBasedRoadmap" name="Generate Role-Based Roadmap">
+      <bpmn:incoming>Flow_LoadProfile_To_GenerateRoadmap</bpmn:incoming>
+      <bpmn:outgoing>Flow_GenerateRoadmap_To_GenerateRecommendations</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_GenerateRecommendations" name="Generate Module &amp; Course Recommendations">
+      <bpmn:incoming>Flow_GenerateRoadmap_To_GenerateRecommendations</bpmn:incoming>
+      <bpmn:outgoing>Flow_Recommendations_To_Dashboard</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_UpdateProgress" name="Update Progress">
+      <bpmn:incoming>Flow_CompleteModule_To_UpdateProgress</bpmn:incoming>
+      <bpmn:outgoing>Flow_UpdateProgress_To_AllCompleted</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_AllModulesCompleted" name="All Required Modules Completed?">
+      <bpmn:incoming>Flow_UpdateProgress_To_AllCompleted</bpmn:incoming>
+      <bpmn:outgoing>Flow_GatewayNo_To_AccessModules</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GatewayYes_To_StoreProgress</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_StoreProgressInDatabase" name="Store Progress in Database">
+      <bpmn:incoming>Flow_GatewayYes_To_StoreProgress</bpmn:incoming>
+      <bpmn:outgoing>Flow_StoreProgress_To_MarkCompleted</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_MarkOnboardingCompleted" name="Mark Onboarding as Completed">
+      <bpmn:incoming>Flow_StoreProgress_To_MarkCompleted</bpmn:incoming>
+      <bpmn:outgoing>Flow_MarkCompleted_To_EndEmployee</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_ReceiveQuestion" name="Receive Question">
+      <bpmn:incoming>Flow_AskQuestion_To_ReceiveQuestion</bpmn:incoming>
+      <bpmn:outgoing>Flow_ReceiveQuestion_To_RetrieveDocs</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_RetrieveRelevantDocuments" name="Retrieve Relevant Onboarding Documents">
+      <bpmn:incoming>Flow_ReceiveQuestion_To_RetrieveDocs</bpmn:incoming>
+      <bpmn:outgoing>Flow_RetrieveDocs_To_GenerateAnswer</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_GenerateAnswerUsingQwen" name="Generate Answer Using Qwen2.5 via Ollama">
+      <bpmn:incoming>Flow_RetrieveDocs_To_GenerateAnswer</bpmn:incoming>
+      <bpmn:outgoing>Flow_GenerateAnswer_To_ReturnAnswer</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ReturnAnswerToEmployee" name="Return Answer to Employee">
+      <bpmn:incoming>Flow_GenerateAnswer_To_ReturnAnswer</bpmn:incoming>
+      <bpmn:outgoing>Flow_ReturnAnswer_To_ViewProgress</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:startEvent id="StartEvent_Admin" name="Start">
+      <bpmn:outgoing>Flow_AdminStart_To_Login</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_LoginToAdminDashboard" name="Login to Admin Dashboard">
+      <bpmn:incoming>Flow_AdminStart_To_Login</bpmn:incoming>
+      <bpmn:outgoing>Flow_AdminLogin_To_ManageEmployees</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ManageEmployees" name="Manage Employees">
+      <bpmn:incoming>Flow_AdminLogin_To_ManageEmployees</bpmn:incoming>
+      <bpmn:outgoing>Flow_ManageEmployees_To_ManageModules</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ManageModulesCourses" name="Manage Modules &amp; Courses">
+      <bpmn:incoming>Flow_ManageEmployees_To_ManageModules</bpmn:incoming>
+      <bpmn:outgoing>Flow_ManageModules_To_ViewOverview</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ViewOnboardingOverview" name="View Onboarding Overview">
+      <bpmn:incoming>Flow_ManageModules_To_ViewOverview</bpmn:incoming>
+      <bpmn:outgoing>Flow_ViewOverview_To_MonitorProgress</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_MonitorEmployeeProgress" name="Monitor Employee Progress">
+      <bpmn:incoming>Flow_ViewOverview_To_MonitorProgress</bpmn:incoming>
+      <bpmn:outgoing>Flow_MonitorProgress_To_EndAdmin</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_Admin" name="End">
+      <bpmn:incoming>Flow_MonitorProgress_To_EndAdmin</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_Start_To_Login" sourceRef="StartEvent_NewEmployee" targetRef="Task_LoginUsingEmployeeId" />
+    <bpmn:sequenceFlow id="Flow_Login_To_Validate" sourceRef="Task_LoginUsingEmployeeId" targetRef="Task_ValidateEmployeeId" />
+    <bpmn:sequenceFlow id="Flow_Validate_To_EmployeeExists" sourceRef="Task_ValidateEmployeeId" targetRef="Gateway_EmployeeExists" />
+    <bpmn:sequenceFlow id="Flow_EmployeeExists_No_ShowError" name="No" sourceRef="Gateway_EmployeeExists" targetRef="Task_ShowLoginError" />
+    <bpmn:sequenceFlow id="Flow_ShowError_To_Login" sourceRef="Task_ShowLoginError" targetRef="Task_LoginUsingEmployeeId" />
+    <bpmn:sequenceFlow id="Flow_EmployeeExists_Yes_LoadProfile" name="Yes" sourceRef="Gateway_EmployeeExists" targetRef="Task_LoadEmployeeProfile" />
+    <bpmn:sequenceFlow id="Flow_LoadProfile_To_GenerateRoadmap" sourceRef="Task_LoadEmployeeProfile" targetRef="Task_GenerateRoleBasedRoadmap" />
+    <bpmn:sequenceFlow id="Flow_GenerateRoadmap_To_GenerateRecommendations" sourceRef="Task_GenerateRoleBasedRoadmap" targetRef="Task_GenerateRecommendations" />
+    <bpmn:sequenceFlow id="Flow_Recommendations_To_Dashboard" sourceRef="Task_GenerateRecommendations" targetRef="Task_ViewDashboard" />
+    <bpmn:sequenceFlow id="Flow_Dashboard_To_AccessModules" sourceRef="Task_ViewDashboard" targetRef="Task_AccessModulesCourses" />
+    <bpmn:sequenceFlow id="Flow_AccessModules_To_CompleteModule" sourceRef="Task_AccessModulesCourses" targetRef="Task_CompleteModule" />
+    <bpmn:sequenceFlow id="Flow_CompleteModule_To_UpdateProgress" sourceRef="Task_CompleteModule" targetRef="Task_UpdateProgress" />
+    <bpmn:sequenceFlow id="Flow_UpdateProgress_To_AllCompleted" sourceRef="Task_UpdateProgress" targetRef="Gateway_AllModulesCompleted" />
+    <bpmn:sequenceFlow id="Flow_GatewayNo_To_AccessModules" name="No" sourceRef="Gateway_AllModulesCompleted" targetRef="Task_AccessModulesCourses" />
+    <bpmn:sequenceFlow id="Flow_GatewayYes_To_StoreProgress" name="Yes" sourceRef="Gateway_AllModulesCompleted" targetRef="Task_StoreProgressInDatabase" />
+    <bpmn:sequenceFlow id="Flow_StoreProgress_To_MarkCompleted" sourceRef="Task_StoreProgressInDatabase" targetRef="Task_MarkOnboardingCompleted" />
+    <bpmn:sequenceFlow id="Flow_MarkCompleted_To_EndEmployee" sourceRef="Task_MarkOnboardingCompleted" targetRef="EndEvent_NewEmployee" />
+    <bpmn:sequenceFlow id="Flow_ViewProgress_To_AskQuestion" sourceRef="Task_ViewOnboardingProgress" targetRef="Task_AskAiAssistantQuestion" />
+    <bpmn:sequenceFlow id="Flow_AskQuestion_To_ReceiveQuestion" sourceRef="Task_AskAiAssistantQuestion" targetRef="Task_ReceiveQuestion" />
+    <bpmn:sequenceFlow id="Flow_ReceiveQuestion_To_RetrieveDocs" sourceRef="Task_ReceiveQuestion" targetRef="Task_RetrieveRelevantDocuments" />
+    <bpmn:sequenceFlow id="Flow_RetrieveDocs_To_GenerateAnswer" sourceRef="Task_RetrieveRelevantDocuments" targetRef="Task_GenerateAnswerUsingQwen" />
+    <bpmn:sequenceFlow id="Flow_GenerateAnswer_To_ReturnAnswer" sourceRef="Task_GenerateAnswerUsingQwen" targetRef="Task_ReturnAnswerToEmployee" />
+    <bpmn:sequenceFlow id="Flow_ReturnAnswer_To_ViewProgress" sourceRef="Task_ReturnAnswerToEmployee" targetRef="Task_ViewOnboardingProgress" />
+
+    <bpmn:sequenceFlow id="Flow_AdminStart_To_Login" sourceRef="StartEvent_Admin" targetRef="Task_LoginToAdminDashboard" />
+    <bpmn:sequenceFlow id="Flow_AdminLogin_To_ManageEmployees" sourceRef="Task_LoginToAdminDashboard" targetRef="Task_ManageEmployees" />
+    <bpmn:sequenceFlow id="Flow_ManageEmployees_To_ManageModules" sourceRef="Task_ManageEmployees" targetRef="Task_ManageModulesCourses" />
+    <bpmn:sequenceFlow id="Flow_ManageModules_To_ViewOverview" sourceRef="Task_ManageModulesCourses" targetRef="Task_ViewOnboardingOverview" />
+    <bpmn:sequenceFlow id="Flow_ViewOverview_To_MonitorProgress" sourceRef="Task_ViewOnboardingOverview" targetRef="Task_MonitorEmployeeProgress" />
+    <bpmn:sequenceFlow id="Flow_MonitorProgress_To_EndAdmin" sourceRef="Task_MonitorEmployeeProgress" targetRef="EndEvent_Admin" />
+  </bpmn:process>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_EmployeeOnboarding">
+    <bpmndi:BPMNPlane id="BPMNPlane_EmployeeOnboarding" bpmnElement="Collaboration_EmployeeOnboarding">
+      <bpmndi:BPMNShape id="Participant_EmployeeOnboarding_di" bpmnElement="Participant_EmployeeOnboarding" isHorizontal="true">
+        <dc:Bounds x="120" y="80" width="2450" height="940" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_NewEmployee_di" bpmnElement="Lane_NewEmployee" isHorizontal="true">
+        <dc:Bounds x="150" y="80" width="2420" height="220" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_System_di" bpmnElement="Lane_System" isHorizontal="true">
+        <dc:Bounds x="150" y="300" width="2420" height="220" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_AIAssistant_di" bpmnElement="Lane_AIAssistant" isHorizontal="true">
+        <dc:Bounds x="150" y="520" width="2420" height="220" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Admin_di" bpmnElement="Lane_Admin" isHorizontal="true">
+        <dc:Bounds x="150" y="740" width="2420" height="280" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="StartEvent_NewEmployee_di" bpmnElement="StartEvent_NewEmployee">
+        <dc:Bounds x="220" y="172" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_LoginUsingEmployeeId_di" bpmnElement="Task_LoginUsingEmployeeId">
+        <dc:Bounds x="310" y="150" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ViewDashboard_di" bpmnElement="Task_ViewDashboard">
+        <dc:Bounds x="1180" y="150" width="170" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AccessModulesCourses_di" bpmnElement="Task_AccessModulesCourses">
+        <dc:Bounds x="1420" y="150" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CompleteModule_di" bpmnElement="Task_CompleteModule">
+        <dc:Bounds x="1660" y="150" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ViewOnboardingProgress_di" bpmnElement="Task_ViewOnboardingProgress">
+        <dc:Bounds x="1990" y="110" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AskAiAssistantQuestion_di" bpmnElement="Task_AskAiAssistantQuestion">
+        <dc:Bounds x="1970" y="200" width="170" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_NewEmployee_di" bpmnElement="EndEvent_NewEmployee">
+        <dc:Bounds x="2295" y="132" width="36" height="36" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_ValidateEmployeeId_di" bpmnElement="Task_ValidateEmployeeId">
+        <dc:Bounds x="310" y="370" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_EmployeeExists_di" bpmnElement="Gateway_EmployeeExists" isMarkerVisible="true">
+        <dc:Bounds x="500" y="385" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ShowLoginError_di" bpmnElement="Task_ShowLoginError">
+        <dc:Bounds x="600" y="420" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_LoadEmployeeProfile_di" bpmnElement="Task_LoadEmployeeProfile">
+        <dc:Bounds x="620" y="320" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_GenerateRoleBasedRoadmap_di" bpmnElement="Task_GenerateRoleBasedRoadmap">
+        <dc:Bounds x="840" y="320" width="170" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_GenerateRecommendations_di" bpmnElement="Task_GenerateRecommendations">
+        <dc:Bounds x="1070" y="320" width="190" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_UpdateProgress_di" bpmnElement="Task_UpdateProgress">
+        <dc:Bounds x="1660" y="370" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_AllModulesCompleted_di" bpmnElement="Gateway_AllModulesCompleted" isMarkerVisible="true">
+        <dc:Bounds x="1840" y="385" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_StoreProgressInDatabase_di" bpmnElement="Task_StoreProgressInDatabase">
+        <dc:Bounds x="1940" y="370" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MarkOnboardingCompleted_di" bpmnElement="Task_MarkOnboardingCompleted">
+        <dc:Bounds x="2150" y="370" width="160" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_ReceiveQuestion_di" bpmnElement="Task_ReceiveQuestion">
+        <dc:Bounds x="1970" y="570" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RetrieveRelevantDocuments_di" bpmnElement="Task_RetrieveRelevantDocuments">
+        <dc:Bounds x="2140" y="570" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_GenerateAnswerUsingQwen_di" bpmnElement="Task_GenerateAnswerUsingQwen">
+        <dc:Bounds x="2360" y="570" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReturnAnswerToEmployee_di" bpmnElement="Task_ReturnAnswerToEmployee">
+        <dc:Bounds x="2185" y="650" width="150" height="70" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="StartEvent_Admin_di" bpmnElement="StartEvent_Admin">
+        <dc:Bounds x="220" y="862" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_LoginToAdminDashboard_di" bpmnElement="Task_LoginToAdminDashboard">
+        <dc:Bounds x="310" y="840" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ManageEmployees_di" bpmnElement="Task_ManageEmployees">
+        <dc:Bounds x="530" y="840" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ManageModulesCourses_di" bpmnElement="Task_ManageModulesCourses">
+        <dc:Bounds x="730" y="840" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ViewOnboardingOverview_di" bpmnElement="Task_ViewOnboardingOverview">
+        <dc:Bounds x="960" y="840" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MonitorEmployeeProgress_di" bpmnElement="Task_MonitorEmployeeProgress">
+        <dc:Bounds x="1190" y="840" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Admin_di" bpmnElement="EndEvent_Admin">
+        <dc:Bounds x="1415" y="862" width="36" height="36" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNEdge id="Flow_Start_To_Login_di" bpmnElement="Flow_Start_To_Login">
+        <di:waypoint x="256" y="190" />
+        <di:waypoint x="310" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Login_To_Validate_di" bpmnElement="Flow_Login_To_Validate">
+        <di:waypoint x="375" y="230" />
+        <di:waypoint x="375" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Validate_To_EmployeeExists_di" bpmnElement="Flow_Validate_To_EmployeeExists">
+        <di:waypoint x="440" y="410" />
+        <di:waypoint x="500" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EmployeeExists_No_ShowError_di" bpmnElement="Flow_EmployeeExists_No_ShowError">
+        <di:waypoint x="525" y="435" />
+        <di:waypoint x="525" y="460" />
+        <di:waypoint x="600" y="460" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="536" y="440" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ShowError_To_Login_di" bpmnElement="Flow_ShowError_To_Login">
+        <di:waypoint x="665" y="420" />
+        <di:waypoint x="665" y="270" />
+        <di:waypoint x="375" y="270" />
+        <di:waypoint x="375" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EmployeeExists_Yes_LoadProfile_di" bpmnElement="Flow_EmployeeExists_Yes_LoadProfile">
+        <di:waypoint x="525" y="385" />
+        <di:waypoint x="525" y="360" />
+        <di:waypoint x="620" y="360" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="535" y="351" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_LoadProfile_To_GenerateRoadmap_di" bpmnElement="Flow_LoadProfile_To_GenerateRoadmap">
+        <di:waypoint x="770" y="360" />
+        <di:waypoint x="840" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GenerateRoadmap_To_GenerateRecommendations_di" bpmnElement="Flow_GenerateRoadmap_To_GenerateRecommendations">
+        <di:waypoint x="1010" y="360" />
+        <di:waypoint x="1070" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Recommendations_To_Dashboard_di" bpmnElement="Flow_Recommendations_To_Dashboard">
+        <di:waypoint x="1260" y="360" />
+        <di:waypoint x="1265" y="360" />
+        <di:waypoint x="1265" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Dashboard_To_AccessModules_di" bpmnElement="Flow_Dashboard_To_AccessModules">
+        <di:waypoint x="1350" y="190" />
+        <di:waypoint x="1420" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_AccessModules_To_CompleteModule_di" bpmnElement="Flow_AccessModules_To_CompleteModule">
+        <di:waypoint x="1570" y="190" />
+        <di:waypoint x="1660" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CompleteModule_To_UpdateProgress_di" bpmnElement="Flow_CompleteModule_To_UpdateProgress">
+        <di:waypoint x="1725" y="230" />
+        <di:waypoint x="1725" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_UpdateProgress_To_AllCompleted_di" bpmnElement="Flow_UpdateProgress_To_AllCompleted">
+        <di:waypoint x="1790" y="410" />
+        <di:waypoint x="1840" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GatewayNo_To_AccessModules_di" bpmnElement="Flow_GatewayNo_To_AccessModules">
+        <di:waypoint x="1865" y="385" />
+        <di:waypoint x="1865" y="130" />
+        <di:waypoint x="1495" y="130" />
+        <di:waypoint x="1495" y="150" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1872" y="245" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GatewayYes_To_StoreProgress_di" bpmnElement="Flow_GatewayYes_To_StoreProgress">
+        <di:waypoint x="1890" y="410" />
+        <di:waypoint x="1940" y="410" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1905" y="392" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_StoreProgress_To_MarkCompleted_di" bpmnElement="Flow_StoreProgress_To_MarkCompleted">
+        <di:waypoint x="2090" y="410" />
+        <di:waypoint x="2150" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MarkCompleted_To_EndEmployee_di" bpmnElement="Flow_MarkCompleted_To_EndEmployee">
+        <di:waypoint x="2310" y="410" />
+        <di:waypoint x="2313" y="410" />
+        <di:waypoint x="2313" y="168" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ViewProgress_To_AskQuestion_di" bpmnElement="Flow_ViewProgress_To_AskQuestion">
+        <di:waypoint x="2065" y="190" />
+        <di:waypoint x="2065" y="200" />
+        </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_AskQuestion_To_ReceiveQuestion_di" bpmnElement="Flow_AskQuestion_To_ReceiveQuestion">
+        <di:waypoint x="2055" y="270" />
+        <di:waypoint x="2055" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ReceiveQuestion_To_RetrieveDocs_di" bpmnElement="Flow_ReceiveQuestion_To_RetrieveDocs">
+        <di:waypoint x="2100" y="610" />
+        <di:waypoint x="2140" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_RetrieveDocs_To_GenerateAnswer_di" bpmnElement="Flow_RetrieveDocs_To_GenerateAnswer">
+        <di:waypoint x="2320" y="610" />
+        <di:waypoint x="2360" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GenerateAnswer_To_ReturnAnswer_di" bpmnElement="Flow_GenerateAnswer_To_ReturnAnswer">
+        <di:waypoint x="2450" y="650" />
+        <di:waypoint x="2450" y="685" />
+        <di:waypoint x="2335" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ReturnAnswer_To_ViewProgress_di" bpmnElement="Flow_ReturnAnswer_To_ViewProgress">
+        <di:waypoint x="2260" y="650" />
+        <di:waypoint x="2260" y="150" />
+        <di:waypoint x="2140" y="150" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_AdminStart_To_Login_di" bpmnElement="Flow_AdminStart_To_Login">
+        <di:waypoint x="256" y="880" />
+        <di:waypoint x="310" y="880" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_AdminLogin_To_ManageEmployees_di" bpmnElement="Flow_AdminLogin_To_ManageEmployees">
+        <di:waypoint x="460" y="880" />
+        <di:waypoint x="530" y="880" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ManageEmployees_To_ManageModules_di" bpmnElement="Flow_ManageEmployees_To_ManageModules">
+        <di:waypoint x="660" y="880" />
+        <di:waypoint x="730" y="880" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ManageModules_To_ViewOverview_di" bpmnElement="Flow_ManageModules_To_ViewOverview">
+        <di:waypoint x="890" y="880" />
+        <di:waypoint x="960" y="880" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ViewOverview_To_MonitorProgress_di" bpmnElement="Flow_ViewOverview_To_MonitorProgress">
+        <di:waypoint x="1120" y="880" />
+        <di:waypoint x="1190" y="880" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_MonitorProgress_To_EndAdmin_di" bpmnElement="Flow_MonitorProgress_To_EndAdmin">
+        <di:waypoint x="1350" y="880" />
+        <di:waypoint x="1415" y="880" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
